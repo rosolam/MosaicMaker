@@ -79,7 +79,7 @@ namespace MosaicMaker
                 }
             }
             Console.WriteLine("regions created @" + DateTime.Now);
-            //DrawImage(fileName + "_debug",true);
+            //DrawImage(outFilePath, Regions,true); //debug
 
             // split up the regions
             List<SKRegion> regionsToSplit = new List<SKRegion>(Regions);
@@ -104,6 +104,7 @@ namespace MosaicMaker
 
 
             DrawImage(outFilePath, SplitRegions);
+            //DrawImage(outFilePath, SplitRegions,true); //debug
             Console.WriteLine("image saved @" + DateTime.Now);
 
 
@@ -165,8 +166,8 @@ namespace MosaicMaker
             foreach (SKRegion r2 in regionsToSplit)
             {
 
-                // if same region, same shape... and unfortunately same bounds because encountered situations where the same shape is not picked up by first two checks, not sure why, no resort but to compare bounds which is probably safe
-                if (r1 == r2 || r1.Equals(r2) || r1.Bounds.Equals(r2.Bounds)) continue;
+                // if same region
+                if (r1 == r2 || r1.Equals(r2)) continue;
 
                 // do they intersect?
                 if (r1.Intersects(r2))
